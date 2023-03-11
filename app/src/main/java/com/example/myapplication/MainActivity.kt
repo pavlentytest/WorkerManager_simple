@@ -3,10 +3,7 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.work.Constraints
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.WorkRequest
+import androidx.work.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +15,9 @@ class MainActivity : AppCompatActivity() {
             .setRequiresCharging(true)
             .build()
 
-        val worker = OneTimeWorkRequestBuilder<MyWorker>().build()
+        val data: Data = Data.Builder().putString("key1","Hello").build()
+
+        val worker = OneTimeWorkRequestBuilder<MyWorker>().setInputData(data).build()
         val worker2 = OneTimeWorkRequestBuilder<MyWorker2>().build()
 
         val list: ArrayList<WorkRequest> = ArrayList()
